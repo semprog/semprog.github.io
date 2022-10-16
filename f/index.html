@@ -34,7 +34,6 @@
             </button>
             <a class="navbar-brand" href="/f/">Yohoho</a>
         </div>
-
     </div>
 </nav>
 
@@ -151,7 +150,7 @@
                     if (exec && exec[2]) {
                         yohoho.dataset.kinopoisk = exec[2];
                         // if (window.location.hostname === 'yohoho.cc') {
-                        //     window.location.href = 'https://semprog.ru/f/#' + yohoho.dataset.kinopoisk;
+                        //     window.location.href = 'https://4h0y.gitlab.io/#' + yohoho.dataset.kinopoisk;
                         //     return;
                         // }
                         window.location.hash = '#' + yohoho.dataset.kinopoisk;
@@ -160,7 +159,7 @@
                 } else if (/^\d+$/.test(title.value)) {
                     yohoho.dataset.kinopoisk = title.value;
                     // if (window.location.hostname === 'yohoho.cc') {
-                    //     window.location.href = 'https://semprog.ru/f/#' + yohoho.dataset.kinopoisk;
+                    //     window.location.href = 'https://4h0y.gitlab.io/#' + yohoho.dataset.kinopoisk;
                     //     return;
                     // }
                     window.location.hash = '#' + yohoho.dataset.kinopoisk;
@@ -168,7 +167,7 @@
                 } else {
                     yohoho.dataset.title = encodeURIComponent(title.value);
                     // if (window.location.hostname === 'yohoho.cc') {
-                    //     window.location.href = 'https://semprog.ru/f/#' + yohoho.dataset.title;
+                    //     window.location.href = 'https://4h0y.bitbucket.io/#' + yohoho.dataset.title;
                     //     return;
                     // }
                     window.location.hash = '#' + yohoho.dataset.title;
