@@ -153,7 +153,8 @@
                         //     window.location.href = 'https://4h0y.bitbucket.io/#' + yohoho.dataset.kinopoisk;
                         //     return;
                         // }
-                        window.location.hash = '#' + yohoho.dataset.kinopoisk;
+                        //window.location.hash = '#' + yohoho.dataset.kinopoisk;
+                        window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.title + '#' + yohoho.dataset.kinopoisk;
                         document.title = 'КиноПоиск: ' + yohoho.dataset.kinopoisk;
                     }
                 } else if (/^\d+$/.test(title.value)) {
@@ -162,7 +163,8 @@
                     //     window.location.href = 'https://4h0y.bitbucket.io/#' + yohoho.dataset.kinopoisk;
                     //     return;
                     // }
-                    window.location.hash = '#' + yohoho.dataset.kinopoisk;
+                    //window.location.hash = '#' + yohoho.dataset.kinopoisk;
+                    window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.title + '#' + yohoho.dataset.kinopoisk;
                     document.title = 'КиноПоиск: ' + yohoho.dataset.kinopoisk;
                 } else {
                     yohoho.dataset.title = encodeURIComponent(title.value);
@@ -170,7 +172,7 @@
                     //     window.location.href = 'https://4h0y.bitbucket.io/#' + yohoho.dataset.title;
                     //     return;
                     // }
-                    window.location.hash = '#' + yohoho.dataset.title;
+                    window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.title + '#' + yohoho.dataset.title;
                     document.title = title.value;
                 }
                 items = [];
