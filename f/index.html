@@ -154,7 +154,7 @@
                         //     return;
                         // }
                         //window.location.hash = '#' + yohoho.dataset.kinopoisk;
-                        window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.title + '#' + yohoho.dataset.kinopoisk;
+                        window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.kinopoisk + '#' + yohoho.dataset.kinopoisk;
                         document.title = 'КиноПоиск: ' + yohoho.dataset.kinopoisk;
                     }
                 } else if (/^\d+$/.test(title.value)) {
@@ -164,7 +164,7 @@
                     //     return;
                     // }
                     //window.location.hash = '#' + yohoho.dataset.kinopoisk;
-                    window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.title + '#' + yohoho.dataset.kinopoisk;
+                    window.location.href = 'https://f.semprog.ru/f/?v=' + yohoho.dataset.kinopoisk + '#' + yohoho.dataset.kinopoisk;
                     document.title = 'КиноПоиск: ' + yohoho.dataset.kinopoisk;
                 } else {
                     yohoho.dataset.title = encodeURIComponent(title.value);
