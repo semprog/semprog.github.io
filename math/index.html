@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Математика</title>
+</head>
+<body class="index">
+<div id="app" >
+    <div class="row">
+        <div class="question">
+            <div class="operand">{{operand1}}</div>
+            <div class="sign"> * </div>
+            <div class="operand">{{operand2}}</div>
+            <div class="equals"> = </div>
+            <div class="operand"> ? </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="answers">
+            <div class="answer" v-for="answer in answers" :key="answer" :class="getAnswerClass(answer)" @click.prevent="answerQuestion(answer)">{{answer}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="result" :class="getResultClass()">{{resultText}}</div>
+    </div>
+    <div class="row">
+        <div class="navigation">
+            <a class="navigation-link" href="javascript:" @click.prevent="generateQuestion">Следующий пример</a>
+        </div>
+    </div>
+</div>
+<style>
+    #app {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 32px;
+        justify-content: center;
+    }
+    .row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .question {
+        display: flex;
+        justify-content: space-between;
+        width: 20%;
+    }
+    .answers {
+        display: flex;
+        justify-content: space-between;
+        width: 35%;
+    }
+    .answer {
+        padding: 3px;
+        border: 2px solid gray;
+        border-radius: 3px;
+        cursor: pointer;
+        min-width: 32px;
+        text-align: center;
+    }
+    .operand {
+        padding: 3px;
+        border: 2px solid gray;
+        border-radius: 3px;
+        min-width: 32px;
+        text-align: center;
+    }
+    .navigation-link {
+        text-decoration: none;
+        padding: 8px;
+        border-radius: 8px;
+        border: 2px solid #000;
+        color: #000;
+    }
+    .answer-correct {
+        border-color: #229b22;
+        color: #229b22;
+    }
+    .answer-wrong {
+        border-color: #ff4054;
+        color: #ff4054;
+    }
+    .answer-correct-text {
+        color: #229b22;
+    }
+    .answer-wrong-text {
+        color: #ff4054;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            operand1: 0,
+            operand2: 0,
+            result: 0,
+            answered: false,
+            answeredValue: 0,
+            correct: false,
+            answers: [],
+            resultText:'',
+            totalAnswers: 0,
+            correctAnswers: 0
+        },
+        mounted: function(){
+            this.generateQuestion()
+        },
+        methods: {
+            getResultClass: function(){
+                if(!this.answered) {
+                    return '';
+                }
+                return this.correct ? 'answer-correct-text':'answer-wrong-text';
+            },
+            getAnswerClass: function(answer) {
+                if(!this.answered) {
+                    return '';
+                }
+                let cssClass = '';
+                if(answer === this.result) {
+                    cssClass = 'answer-correct';
+                } else if(answer === this.answeredValue) {
+                    cssClass = 'answer-wrong';
+                }
+
+                return cssClass;
+            },
+            answerQuestion: function(result) {
+                if(this.answered) {
+                    return;
+                }
+                this.totalAnswers += 1;
+                this.answeredValue = result;
+                this.correct = this.result === result;
+                if(this.correct) {
+                    this.correctAnswers += 1;
+                }
+                this.answered = true;
+                this.resultText = this.correct? 'Правильно, молодец!':'Неправильно'
+            },
+            randomInt: function (min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            },
+            generateQuestion: function () {
+                this.answered = false;
+                this.answeredValue = 0;
+                this.resultText = 'Выбери ответ';
+                this.operand1 = this.randomInt(2, 9);
+                this.operand2 = this.randomInt(2, 9);
+                this.result = this.operand1 * this.operand2;
+                let answers = [];
+                answers.push(this.result);
+                answers.push(this.result - 1);
+                answers.push(this.result + 1);
+                answers.push(this.result - this.randomInt(2, Math.max(3, this.result / 3 )));
+                answers.push(this.result + this.randomInt(2, 10));
+
+                this.answers = this.shuffle(answers);
+            },
+            shuffle: function (array) {
+                let currentIndex = array.length, randomIndex;
+
+                // While there remain elements to shuffle.
+                while (currentIndex !== 0) {
+
+                    // Pick a remaining element.
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex--;
+
+                    // And swap it with the current element.
+                    [array[currentIndex], array[randomIndex]] = [
+                        array[randomIndex], array[currentIndex]];
+                }
+
+                return array;
+            }
+        }
+    })
+</script>
+</body>
+</html>
