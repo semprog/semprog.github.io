@@ -2,11 +2,118 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    <style>
+        .index, .contact, .webmaster, body {
+            background: #2A3440;
+            font-family: Neucha, sans-serif;
+            color: #fff;
+            margin: 50px auto 60px;
+            font-size: 14px
+        }
+        #search-line {
+            z-index: 3;
+            position: absolute !important;
+            left: 50%;
+            top: 40%;
+            margin-left: -325px !important;
+            margin-top: -100px !important;
+            width: 650px
+        }
+
+        #search-line .brand {
+            color: #fff;
+            font-size: 70px;
+            font-weight: 700;
+            margin: 0 auto;
+            text-align: center;
+            text-shadow: 1px 1px 2px #000, 0 0 1em #5bb8cc
+        }
+
+        #search-line .brand:first-letter {
+            text-transform: uppercase
+        }
+
+        #search-line .form {
+            margin: 20px auto;
+            width: 100%;
+            text-align: center
+        }
+
+        #search-line .form input, .moderator input, .moderator textarea, .movie-soc textarea {
+            color: #fff;
+            background: #27313e;
+            border: 2px #2f3a46 solid;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 30px auto 0;
+            font-size: 26px
+        }
+
+        #search-line input:hover, .moderator input:hover, .moderator textarea:hover, .movie-soc textarea:hover {
+            border: 2px #27313e solid;
+            background: #2f3a46
+        }
+    </style>
 </head>
 <body class="index">
-<div style="width: 100vw; height: 100vh;">
-    <div id="kinoplayertop" data-kinopoisk="306084"></div>
-    <script src="https://kinoplayer.top/top.js"></script>
+
+<div id="search-line">
+    <div id="yohoho" data-tv="1" data-resize="1">
+        <div class="form">
+            <input type="number" placeholder="Название фильма / ID КиноПоиск" id="search-title" name="title" style="width: 250px">
+            <input type="button" id="search" value="Найти">
+        </div>
+    </div>
 </div>
+
+
+<div style="width: 90vw; height: 90vh; margin: auto; display: none" id="kinoplayertop-div">
+    <div id="kinoplayertop" data-kinopoisk=""></div>
+</div>
+<script>
+    function loadJS(FILE_URL, async = true) {
+        let scriptEle = document.createElement("script");
+
+        scriptEle.setAttribute("src", FILE_URL);
+        scriptEle.setAttribute("type", "text/javascript");
+        scriptEle.setAttribute("async", async);
+
+        document.body.appendChild(scriptEle);
+
+        // success event
+        scriptEle.addEventListener("load", () => {
+            console.log("File loaded");
+            kinoplayer_run();
+        });
+        // error event
+        scriptEle.addEventListener("error", (ev) => {
+            console.log("Error on loading file", ev);
+        });
+    }
+
+    function loadPlayer() {
+        loadJS('https://kinoplayer.top/top.js');
+    }
+
+    document.getElementById('search').addEventListener('click', function(){
+        let id = document.getElementById('search-title').value;
+        window.location.href = 'https://f.semprog.ru/f1/?v=' + id + '#' + id;
+
+
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.location.hash) {
+            let hash = window.location.hash.substring(1);
+            document.getElementById('search-line').style.display = 'none';
+            document.getElementById('kinoplayertop-div').style.display = '';
+            document.getElementById('kinoplayertop').dataset.kinopoisk = hash;
+            document.title = "КП: "+hash;
+            loadPlayer();
+        }
+    });
+
+
+</script>
 </body>
 </html>
