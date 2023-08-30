@@ -58,7 +58,7 @@
 <body class="index">
 
 <div id="search-line">
-    <div id="yohoho" data-tv="1" data-resize="1">
+    <div id="asdsad" data-tv="1" data-resize="1">
         <form class="form" id="search">
             <input type="number" placeholder="Название фильма / ID КиноПоиск" id="search-title" name="v" style="width: 250px">
             <input type="submit" value="Найти">
@@ -71,65 +71,16 @@
     <div id="kinoplayertop" data-kinopoisk=""></div>
 </div>
 <script>
-    function loadJS(FILE_URL, async = true) {
-        let scriptEle = document.createElement("script");
-
-        scriptEle.setAttribute("src", FILE_URL);
-        scriptEle.setAttribute("type", "text/javascript");
-        scriptEle.setAttribute("async", async);
-
-        document.body.appendChild(scriptEle);
-
-        // success event
-        scriptEle.addEventListener("load", () => {
-            console.log("File loaded");
-            kinoplayer_run();
-        });
-        // error event
-        scriptEle.addEventListener("error", (ev) => {
-            console.log("Error on loading file", ev);
-        });
-    }
-
-    function loadPlayer() {
-        loadJS('https://kinoplayer.top/top.js');
-    }
-
-    function getQueryParams(qs) {
-        qs = qs.split('+').join(' ');
-        let params = {},
-            tokens,
-            re = /[?&]?([^=]+)=([^&]*)/g;
-
-        while (tokens = re.exec(qs)) {
-            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-        }
-        return params;
-    }
-
-    // document.getElementById('search').addEventListener('click', function(){
-    //     let id = document.getElementById('search-title').value;
-    //     window.location.href = 'https://f.semprog.ru/f1/?v=' + id + '#' + id;
-    // });
 
 
+    document.getElementById('search').addEventListener('submit', function(event){
+        let id = document.getElementById('search-title').value;
+        window.location.href = 'https://flicksbar.club/series/'+id+'/';
 
-
-    document.addEventListener('DOMContentLoaded', function () {
-        try {
-            let params = getQueryParams(window.location.search);
-            if (params['v']) {
-                let hash = params['v'];
-                document.getElementById('search-line').style.display = 'none';
-                document.getElementById('kinoplayertop-div').style.display = '';
-                document.getElementById('kinoplayertop').dataset.kinopoisk = hash;
-                document.title = "КП: " + hash;
-                loadPlayer();
-            }
-        } catch (e) {
-            alert(e);
-        }
+        event.preventDefault()
+        event.stopPropagation();
     });
+
 
 
 </script>
