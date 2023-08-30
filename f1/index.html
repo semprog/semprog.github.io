@@ -59,10 +59,10 @@
 
 <div id="search-line">
     <div id="yohoho" data-tv="1" data-resize="1">
-        <div class="form">
-            <input type="number" placeholder="Название фильма / ID КиноПоиск" id="search-title" name="title" style="width: 250px">
-            <input type="button" id="search" value="Найти">
-        </div>
+        <form class="form" id="search">
+            <input type="number" placeholder="Название фильма / ID КиноПоиск" id="search-title" name="v" style="width: 250px">
+            <input type="submit" value="Найти">
+        </form>
     </div>
 </div>
 
@@ -95,21 +95,39 @@
         loadJS('https://kinoplayer.top/top.js');
     }
 
-    document.getElementById('search').addEventListener('click', function(){
-        let id = document.getElementById('search-title').value;
-        window.location.href = 'https://f.semprog.ru/f1/?v=' + id + '#' + id;
+    function getQueryParams(qs) {
+        qs = qs.split('+').join(' ');
+        let params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+        }
+        return params;
+    }
+
+    // document.getElementById('search').addEventListener('click', function(){
+    //     let id = document.getElementById('search-title').value;
+    //     window.location.href = 'https://f.semprog.ru/f1/?v=' + id + '#' + id;
+    // });
 
 
-    });
+
 
     document.addEventListener('DOMContentLoaded', function () {
-        if (window.location.hash) {
-            let hash = window.location.hash.substring(1);
-            document.getElementById('search-line').style.display = 'none';
-            document.getElementById('kinoplayertop-div').style.display = '';
-            document.getElementById('kinoplayertop').dataset.kinopoisk = hash;
-            document.title = "КП: "+hash;
-            loadPlayer();
+        try {
+            let params = getQueryParams(window.location.search);
+            if (params['v']) {
+                let hash = params['v'];
+                document.getElementById('search-line').style.display = 'none';
+                document.getElementById('kinoplayertop-div').style.display = '';
+                document.getElementById('kinoplayertop').dataset.kinopoisk = hash;
+                document.title = "КП: " + hash;
+                loadPlayer();
+            }
+        } catch (e) {
+            alert(e);
         }
     });
 
